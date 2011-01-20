@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+	<head>
+		<title>Wheel [Plugn jQuery] - EXAMPLE</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+    	<h1>jWheel <span>(version beta)</span></h1>
+		<div id="box" class="box1"><!-- --></div>
+		<div id="box" class="box2"><!-- --></div>
+		
+		<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script-->
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="jquery.wheel.js"></script>
+		<script type="text/javascript">	
+			(function($){
+				var 
+					current;
+				
+				$(".box1, .box2").mousewheel(function(e, delta){
+					current = $(this);
+					
+					if (current.hasClass("box1")) {
+						(delta > 0) ? current.css("border", "3px solid green") : current.css("border", "3px solid yellow");
+					}else{
+						var 
+							offsetLeft = parseInt(current.offset().left),
+							bodyWidth = parseInt($("body").width()),
+							currentLeft = parseInt(current.css("left")),
+							currentWidth = parseInt(current.width());
+							
+						if (delta > 0 && ((currentLeft-currentWidth) >= 0)) {
+							currentLeft -= 20;
+						}else if(delta < 0 && ((currentLeft+currentWidth) <= bodyWidth)){
+							currentLeft += 20;
+						}
+						
+						current.css("left", currentLeft);
+					}
+				});
+			})(jQuery);
+		</script>
+	</body>
+</html>
